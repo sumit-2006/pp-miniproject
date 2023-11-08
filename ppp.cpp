@@ -11,11 +11,11 @@ private:
     int n, digits;
     int getDigits(int n)
     {
-        int x = n, digit = 0;
-        while (x > 0)
+        int digit = 0;
+        while (n > 0)
         {
             digit++;
-            x = x / 10;
+            n = n / 10;
         }
         return digit;
     }
@@ -36,7 +36,7 @@ public:
         factors();
         isPalindromic();
         isTriangular();
-        isHappy();
+        isHappy(n);
         isFibonacci();
         isNarcissistic();
         getBase();
@@ -73,22 +73,22 @@ public:
     }
     void cubeRoot()
     {
-        double d, y;
+        double d;
         d = pow(n, 1.0 / 3.0);
         cout << "Its CUBEROOT is " << d << endl;
     }
-    void isHappy()
+    void isHappy(int n)
     {
-        int sum, x = n;
+        int sum;
         do
         {
             sum = 0;
-            while (x != 0)
+            while (n != 0)
             {
-                sum = sum + pow(x % 10, 2);
-                x = x / 10;
+                sum = sum + pow(n % 10, 2);
+                n = n / 10;
             }
-            x = sum;
+            n = sum;
         } while (getDigits(sum) != 1);
         if (sum == 1)
         {
@@ -99,23 +99,27 @@ public:
     }
     void isTriangular()
     {
-        int sum = 0;
-        for (int i = 0; sum < n; i++)
+        int x = 0;
+        bool flag = false;
+        for (int i = 0; x <= n; i++)
         {
-            sum = sum + i;
+            x = (i * (i + 1)) / 2;
+            if (x == n)
+            {
+                cout << "It is a TRIANGULAR number" << endl;
+                flag = true;
+            }
         }
-        if (sum == n)
+        if (flag == false)
         {
-            cout << "It is a TRIANGULAR number" << endl;
+            cout << "It is not a TRIANGULAR number" << endl;
         }
-        else
-            cout << "It is NOT a TRIANGULAR number" << endl;
     }
     void scientificNotation()
     {
         double x = n;
         cout << "Scientific Notation: ";
-        std::cout << std::scientific << std::setprecision(digits - 1) << x << std::endl;
+        cout << scientific << setprecision(digits - 1) << x << endl;
     }
     void range()
     {
@@ -139,17 +143,16 @@ public:
     }
     void isPrime()
     {
-        int flag;
-        flag = 0;
+        bool flag = false;
         for (int i = 2; i < n; i++)
         {
             if (n % i == 0)
             {
-                flag = 1;
+                flag = true;
                 break;
             }
         }
-        if (flag == 0)
+        if (flag == false)
         {
             cout << "It is a PRIME number." << endl;
         }
@@ -158,12 +161,12 @@ public:
     }
     void isPalindromic()
     {
-        int a = n, c, rev = 0;
+        int a = n, rem, rev = 0;
         while (a > 0)
         {
-            c = a % 10;
+            rem = a % 10;
             a = a / 10;
-            rev = rev * 10 + c;
+            rev = rev * 10 + rem;
         }
         if (rev == n)
         {
